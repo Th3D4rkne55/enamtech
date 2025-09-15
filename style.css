@@ -1,0 +1,377 @@
+/* ======================================================
+   Fonts (tech): Orbitron + Space Grotesk
+   ====================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Space+Grotesk:wght@400;600&display=swap');
+
+/* Suavização + rolagem suave */
+html{
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ======================================================
+   BASE (variáveis)
+   ====================================================== */
+:root{
+  --bg-900: #0b1220;
+  --bg-800: #0f172a;
+  --panel-700:#1e293b;
+  --text-100:#e5e7eb;
+  --muted:#94a3b8;
+  --blue:#60a5fa;
+  --blue-strong:#3b82f6;
+  --blue-stronger:#2563eb;
+}
+
+body{
+  margin: 0;
+  background: var(--bg-900);
+  color: var(--text-100);
+  font-family: "Space Grotesk", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+/* ======================================================
+   HEADER — Desktop: slogan (topo) | brandL - menu - brandR
+   ====================================================== */
+header{
+  position: relative; /* p/ toggle de tema */
+  display: grid;
+  grid-template-columns: auto 1fr auto;      /* ESQ | centro | DIR */
+  grid-template-rows: auto auto;             /* 1: slogan | 2: linha principal */
+  grid-template-areas:
+    "slogan slogan slogan"
+    "brandL menu   brandR";
+  align-items: center;
+  row-gap: 4px;
+  padding: 4px 12px;                          /* header fino */
+  background: var(--bg-800);
+}
+
+/* Slogan (topo) */
+.slogan{ grid-area: slogan; text-align: center; }
+.slogan h2{
+  margin: 0;
+  font-family: "Orbitron","Space Grotesk",system-ui,sans-serif;
+  font-size: clamp(16px, 2.2vw, 22px);
+  font-weight: 600;
+  letter-spacing: .02em;
+  color: var(--text-100);
+}
+
+/* Permite que brand/espelho participem do grid */
+.brand-wrap{ display: contents; }
+
+/* Marca normal (ESQ) */
+.brand{
+  grid-area: brandL;
+  justify-self: start;
+  display: flex; align-items: center; gap: 10px;
+}
+.brand img{ height: 52px; }
+.brand h1{
+  margin: 0;
+  font-family: "Orbitron","Space Grotesk",system-ui,sans-serif;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-weight: 700;
+  font-size: clamp(18px, 2.5vw, 24px);
+}
+
+/* Marca espelhada (DIR) */
+.brand-mirror{
+  grid-area: brandR;
+  justify-self: end;
+  display: flex; align-items: center; gap: 10px;
+  transform: scaleX(-1);
+  opacity: .9;
+}
+.brand-mirror img{ height: 52px; }
+.brand-mirror h1{
+  margin: 0;
+  font-family: "Orbitron","Space Grotesk",system-ui,sans-serif;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-weight: 700;
+  font-size: clamp(18px, 2.5vw, 24px);
+}
+
+/* Menu (centro) */
+.menu{
+  grid-area: menu;
+  display: flex; justify-content: center; align-items: center;
+  gap: 22px;
+  margin: 0;
+  transform: translateY(-2px); /* microalinhamento vertical */
+}
+.menu a{
+  font-family: "Orbitron","Space Grotesk",system-ui,sans-serif;
+  letter-spacing: .04em; text-transform: uppercase;
+  color: var(--blue); font-weight: 600; text-decoration: none;
+  padding: 4px 8px; border-radius: 8px;
+  transition: color .25s, background-color .25s;
+}
+.menu a:hover{ color:#93c5fd; background: rgba(147,197,253,.08); }
+
+/* Toggle tema (topo-direito) */
+.theme-toggle{
+  position: absolute; right: 10px; top: 8px;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px;
+  border: none; border-radius: 8px;
+  background: transparent; color: #93c5fd;
+  cursor: pointer; transition: background-color .2s, transform .15s, color .2s;
+}
+.theme-toggle:hover{ background: rgba(147,197,253,.12); transform: translateY(-1px); }
+.theme-toggle i{ font-size: 18px; }
+
+/* ======================================================
+   MOBILE (≤768px): Brand | Slogan | Menu — tudo central
+   ====================================================== */
+@media (max-width: 768px){
+  header{
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "brandL"
+      "slogan"
+      "menu";
+    padding: 10px 12px;
+    row-gap: 8px;
+  }
+  .brand{ justify-self: center; }
+  .brand img{ height: 54px; }
+  .brand h1{ font-size: 22px; }
+
+  .brand-mirror{ display: none !important; }
+  .menu{ transform: none; gap: 16px; flex-wrap: wrap; }
+  .menu a{ padding: 8px 10px; font-size: 14px; }
+}
+
+/* ======================================================
+   SERVIÇOS (ACORDEÃO .svc-acc) – sem conflito com Bootstrap
+   ====================================================== */
+#servicos{ padding: 40px 20px; }
+#servicos h2{
+  text-align: center;
+  font-family: "Orbitron","Space Grotesk",system-ui,sans-serif;
+  font-weight: 700; letter-spacing: .03em; margin: 0 0 16px;
+}
+
+/* Casca dos itens */
+.svc-acc .accordion-item{
+  background: var(--panel-700);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.svc-acc .accordion-item + .accordion-item{ margin-top: 14px; }
+
+/* Botão do acordeão */
+.svc-acc .accordion-button{
+  background: transparent;
+  color: var(--text-100);
+  font-family: "Orbitron","Space Grotesk",system-ui,sans-serif;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  font-weight: 700;
+  padding: 16px 18px;
+  border: 0;
+  box-shadow: none;
+}
+.svc-acc .accordion-button::after{
+  /* deixa o ícone do Bootstrap no tom azulado */
+  filter: invert(76%) sepia(15%) saturate(832%) hue-rotate(186deg) brightness(95%) contrast(94%);
+}
+.svc-acc .accordion-button:not(.collapsed){
+  color: #93c5fd;
+  background: rgba(147,197,253,.08);
+  box-shadow: none;
+}
+.svc-acc .accordion-button:focus{ box-shadow: none; }
+
+/* Corpo do acordeão */
+.svc-acc .accordion-body{
+  color: #cbd5e1;
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 16px 18px 18px;
+}
+
+/* ======================================================
+   PORTFÓLIO (Bootstrap Carousel — 2 imagens por slide)
+   ====================================================== */
+#portfolio{ padding: 40px 20px; text-align: center; }
+#portfolio h2{
+  font-family: "Orbitron","Space Grotesk",system-ui,sans-serif;
+  font-weight: 700; letter-spacing: .03em; margin-bottom: 20px;
+}
+
+/* Enquadramento/altura responsiva das fotos */
+.portfolio-img{
+  width: 100%;
+  height: clamp(340px, 42vw, 560px); /* mais alto para não cortar */
+  object-fit: cover;
+  object-position: center 35%;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: #0f172a;
+}
+
+/* Indicadores um pouco abaixo */
+#carouselPortfolio .carousel-indicators{ bottom: -16px; }
+
+/* Ajustes por breakpoint */
+@media (min-width: 1400px){ .portfolio-img{ height: 580px; } }
+@media (max-width: 991.98px){ .portfolio-img{ height: 360px; } }
+@media (max-width: 575.98px){ .portfolio-img{ height: 240px; } }
+
+/* Melhor contraste dos botões de navegação no dark */
+.carousel .carousel-control-prev-icon,
+.carousel .carousel-control-next-icon{
+  filter: drop-shadow(0 0 2px rgba(0,0,0,.6));
+}
+
+/* ======================================================
+   CONTATO
+   ====================================================== */
+#contato{ padding: 40px 20px; }
+#contato h2{
+  font-family: "Orbitron","Space Grotesk",system-ui,sans-serif;
+  font-weight: 700; letter-spacing: .03em;
+  text-align: center; margin-bottom: 20px;
+}
+
+.contact-container{ display: flex; flex-wrap: wrap; gap: 20px; }
+.map-wrap, .form-wrap{
+  flex: 1; min-width: 300px; padding: 20px;
+  background: var(--panel-700); border-radius: 8px;
+}
+.form-wrap form{ display: flex; flex-direction: column; gap: 12px; }
+.form-wrap input, .form-wrap textarea{
+  padding: 10px; border-radius: 6px; border: none;
+  background: var(--bg-800); color: #fff;
+  font-family: "Space Grotesk", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+.form-wrap button{
+  padding: 12px 16px; background: var(--blue-strong); color: #fff;
+  border: none; border-radius: 8px; font-weight: 700; cursor: pointer;
+  transition: background .25s ease, transform .15s ease;
+  font-family: "Orbitron","Space Grotesk",system-ui,sans-serif;
+  letter-spacing: .04em; text-transform: uppercase;
+}
+.form-wrap button:hover{ background: var(--blue-stronger); transform: translateY(-1px); }
+
+/* ======================================================
+   FOOTER
+   ====================================================== */
+footer{
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; padding: 20px;
+  background: var(--bg-800); color: var(--muted);
+}
+footer .social{
+  order: -1; margin-bottom: 10px;
+  display: inline-flex; align-items: center; gap: 18px;
+}
+footer .social a{
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--blue); font-size: 14px; font-weight: 600;
+  text-decoration: none; transition: color .3s;
+  font-family: "Orbitron","Space Grotesk",system-ui,sans-serif;
+  letter-spacing: .03em;
+}
+footer .social a:hover{ color: #93c5fd; }
+.icon{ width: 16px; height: 16px; flex-shrink: 0; fill: currentColor; }
+
+/* contato em coluna no mobile */
+@media (max-width: 768px){
+  .contact-container{ flex-direction: column; }
+}
+
+/* ======================================================
+   TRANSIÇÕES GERAIS
+   ====================================================== */
+body, header, .map-wrap, .form-wrap, footer,
+.menu a, .form-wrap button, .svc-acc .accordion-item, .portfolio-img{
+  transition: background-color .25s ease, color .25s ease, border-color .25s ease;
+}
+
+/* ======================================================
+   TEMA CLARO
+   ====================================================== */
+body.theme-light{
+  --bg-900:#f5f7ff;
+  --bg-800:#e9efff;
+  --panel-700:#eef2ff;
+  --text-100:#0b1220;
+
+  background: var(--bg-900);
+  color: var(--text-100);
+}
+
+body.theme-light header{ background: var(--bg-800); }
+body.theme-light .slogan h2,
+body.theme-light .brand h1,
+body.theme-light .brand-mirror h1{ color: var(--text-100); }
+
+body.theme-light .menu a{ color: #2563eb; }
+body.theme-light .menu a:hover{ color: #1d4ed8; background: rgba(37,99,235,.10); }
+
+/* Acordeão claro */
+body.theme-light .svc-acc .accordion-item{
+  background: var(--panel-700);
+  border-color: rgba(15,23,42,.08);
+}
+body.theme-light .svc-acc .accordion-button{ color: var(--text-100); }
+body.theme-light .svc-acc .accordion-button:not(.collapsed){
+  color: #1d4ed8;
+  background: rgba(29,78,216,.08);
+}
+body.theme-light .svc-acc .accordion-body{ color: #334155; }
+
+/* Contato claro */
+body.theme-light .form-wrap,
+body.theme-light .map-wrap{ background: var(--panel-700); }
+body.theme-light .form-wrap input,
+body.theme-light .form-wrap textarea{
+  background: #ffffff; color: var(--text-100);
+}
+body.theme-light .form-wrap button{ background: var(--blue-strong); }
+body.theme-light .form-wrap button:hover{ background: var(--blue-stronger); }
+
+/* Carrossel claro */
+body.theme-light .portfolio-img{
+  background: #fff; border-color: rgba(15,23,42,.10);
+}
+body.theme-light .carousel .carousel-control-prev-icon,
+body.theme-light .carousel .carousel-control-next-icon{
+  filter: invert(1) grayscale(100%);
+}
+body.theme-light .carousel .carousel-indicators [data-bs-target]{
+  background-color: #2563eb;
+}
+
+/* Botão de tema claro */
+body.theme-light .theme-toggle{ color: #1d4ed8; }
+body.theme-light .theme-toggle:hover{ background: rgba(29,78,216,.12); }
+
+/* ===== Espaçamento vertical entre seções ===== */
+:root{
+  --section-gap: clamp(56px, 9vw, 120px);   /* controle global do respiro */
+}
+
+/* Só aplica margem quando há uma seção após a outra */
+section + section{
+  margin-top: var(--section-gap);
+}
+
+/* Um pouco menos de respiro em telas menores */
+@media (max-width: 768px){
+  :root{ --section-gap: clamp(40px, 8vw, 72px); }
+}
+
+/* Anchor scroll mais confortável (quando clica no menu) */
+#servicos, #portfolio, #contato{
+  scroll-margin-top: 80px;
+}
+
